@@ -18,10 +18,12 @@ setTimeout(() => {
     const element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 
     const tickBox = element.parentElement.parentElement.parentElement.children[6].children[3];
-    const isDisabled = tickBox.disabled;
-    const isChecked = tickBox.checked;
+    const isDisabled = tickBox?.disabled;
+    // add a ?. because when the course is full,
+    // one of the two inputs might be missing
+    const isChecked = tickBox?.checked;
 
-    if (!isDisabled && !isChecked) {
+    if (tickBox && !isDisabled && !isChecked) {
         tickBox.click();
         setTimeout(() => {
             window.prtl.mainManager.saveCell(document.f_1809191822);
